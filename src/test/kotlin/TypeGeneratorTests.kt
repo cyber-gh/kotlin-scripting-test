@@ -22,7 +22,7 @@ class TypeGeneratorTests(
         }
     }
 
-    private val workingDir = "src/test/resources/"
+    private val workingDir = "src/test/resources/${testName}Test/"
     private val typeGenerator = TypeGenerator(workingDir)
 
     @Test
