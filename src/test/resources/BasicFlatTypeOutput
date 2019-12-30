@@ -1,0 +1,16 @@
+import com.google.gson.Gson
+
+
+data class BasicFlatTypeGenerated (
+	val integer: Int,
+	val decimal: Double,
+	val boolean: Boolean,
+	val string: String
+){
+    companion object {
+        fun readFromSource(jsonStr: String) : BasicFlatTypeGenerated {
+            val out = Gson().fromJson(jsonStr, BasicFlatTypeGenerated::class.java)
+            return out
+        }
+    }
+}

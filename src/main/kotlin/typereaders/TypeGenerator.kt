@@ -29,13 +29,14 @@ class TypeGenerator(
         return dataClass
     }
 
-    fun outputFlatType(jsonStr: String) {
+    fun outputFlatType(jsonStr: String, className: String = "GeneratedClass"){
         val dataClass = generateFlatType(jsonStr)
+        dataClass.name = className
         val fileName = outputFilePath + "${dataClass.name}.kt"
         val file = File(fileName)
 
         file.printWriter().use {
-            it.print(dataClass.generateCode())
+            it.print(dataClass.generateCompleteSourceCode())
         }
     }
 }

@@ -2,7 +2,7 @@ package typereaders
 
 data class KotlinDataClass(
     val id: Int = -1,
-    val name: String = "GeneratedClass",
+    var name: String = "GeneratedClass",
     val properties: List<Property>
 ) {
     fun generateCode() : String {
@@ -13,8 +13,36 @@ data class KotlinDataClass(
                     if (!it.isLast) "," else ""
         }.toList()
 
-        val lines = mutableListOf<String>(nameLine) + propertiesLines + endLine
+        val definitionCodeLines = mutableListOf<String>(nameLine) + propertiesLines + endLine
 
-        return lines.joinToString("\n")
+
+
+        return definitionCodeLines.joinToString("\n")
     }
+
+    fun getImportStatements(): String {
+        val lst = listOf("import com.google.gson.Gson")
+        return lst.joinToString("\n") + "\n\n"
+    }
+
+    fun generateCompleteSourceCode() : String {
+        val importStatements = getImportStatements()
+        val definitionCode = generateCode()
+        val implementationCode = generateImplementationOfReader()
+
+        return importStatements + definitionCode + implementationCode
+    }
+
+    fun generateImplementationOfReader() : String {
+        return "{\n" +
+                "    companion object {\n" +
+                "        fun readFromSource(jsonStr: String) : ${name} {\n" +
+                "            val out = Gson().fromJson(jsonStr, ${name}::class.java)\n" +
+                "            return out\n" +
+                "        }\n" +
+                "    }\n" +
+                "}"
+    }
+
+
 }
