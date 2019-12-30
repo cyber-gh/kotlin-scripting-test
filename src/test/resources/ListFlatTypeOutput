@@ -1,0 +1,12 @@
+import com.google.gson.Gson
+
+data class ListFlatTypeGenerated (
+	val names: List<String>
+){
+    companion object {
+        fun readFromSource(jsonStr: String) : ListFlatTypeGenerated {
+            val out = Gson().fromJson(jsonStr, ListFlatTypeGenerated::class.java)
+            return out
+        }
+    }
+}

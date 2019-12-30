@@ -1,16 +1,32 @@
 
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
 import typereaders.TypeGenerator
 import utilities.readFromFile
 
-class TypeGeneratorTests {
+@RunWith(Parameterized::class)
+class TypeGeneratorTests(
+    val testName : String
+) {
+
+    companion object {
+        @JvmStatic
+        @Parameterized.Parameters
+        fun data() : Collection<String> {
+            return listOf(
+                "BasicFlatType",
+                "ListFlatType"
+            )
+        }
+    }
 
     private val workingDir = "src/test/resources/"
     private val typeGenerator = TypeGenerator(workingDir)
 
     @Test
     fun testGeneratesBasicFlatType() {
-        val testName = "BasicFlatType"
+        //val testName = "ListFlatType"
         val inJsonFilePath = "$workingDir$testName.json"
         val outGeneratedClassPath = workingDir + testName + "Output"// "BasicFlatTypeOutput"
         val rawStr = readFromFile(inJsonFilePath)
