@@ -16,7 +16,8 @@ class TypeGeneratorTests(
         fun data() : Collection<String> {
             return listOf(
                 "BasicFlatType",
-                "ListFlatType"
+                "ListFlatType",
+                "CombinedFlatType"
             )
         }
     }

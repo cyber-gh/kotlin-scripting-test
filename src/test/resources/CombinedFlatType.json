@@ -1,0 +1,11 @@
+{
+  "integer":           1,
+  "decimal":           1.0,
+  "boolean":           false,
+  "string":         "Admin",
+  "list": [
+    "test1",
+    "test2",
+    "test3"
+  ]
+}
