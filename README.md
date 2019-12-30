@@ -1,7 +1,7 @@
 <h3>Generates Kotlin data classes from json string</h3>
 Uses Gson for parsing JSON<br>
 Examples usage: <br> 
-<code>val generator = TypeGenerator(workingDirectory) \
+<code>val generator = TypeGenerator(workingDirectory) </code><br><code>
 generator.outputFlatType(jsonString)
 </code>
 <br>
