@@ -9,7 +9,8 @@ data class KotlinDataClass(
         val nameLine = "\ndata class ${name} ("
         val endLine = ")"
         val propertiesLines = properties.map {
-            val typeDescriptor = if(it.isList) "List<${it.underlyingType}>" else it.type
+            val typeDescriptor = if(it.isList) "List<${it.underlyingType}>" else it.type +
+                                 if(it.nullable) "?" else ""
 
             "\t${it.keyword} ${it.name}: ${typeDescriptor}" +
                     if (!it.isLast) "," else ""

@@ -1,4 +1,7 @@
 package typereaders
+
+
+
 data class Property(
     val keyword: String = "val",
     val originName: String,
@@ -10,5 +13,6 @@ data class Property(
     val isLast: Boolean = false,
     val typeId: Int = -1,
     val isList: Boolean = false,
-    val underlyingType: String? = null
+    val underlyingType: String? = null,
+    val nullable: Boolean = false
 )
