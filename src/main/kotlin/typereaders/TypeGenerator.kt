@@ -9,7 +9,8 @@ class TypeGenerator(
     private val outputFilePath: String = "src/main/generated/") {
 
 
-    private fun generateFlatType(jsonStr: String, typeGeneratorConfiguration: TypeGeneratorConfiguration = TypeGeneratorConfiguration()) : KotlinDataClass {
+    private fun generateFlatType(jsonStr: String,
+                                 conf: TypeGeneratorConfiguration = TypeGeneratorConfiguration()) : KotlinDataClass {
         val parser = JsonParser()
         val gson : JsonObject = parser.parse(jsonStr).asJsonObject
 
@@ -25,14 +26,14 @@ class TypeGenerator(
             val isComposite = underlyingTYpe.isPrimitive()
 
             Property(
-                keyword = typeGeneratorConfiguration.keyWord.toStr(),
+                keyword = conf.keyWord.toStr(),
                 originName = mutableEntry.key,
                 originJsonValue = mutableEntry.value.toString(),
                 type = mutableEntry.value.getType().ktName(),
                 isLast = index == entries.size - 1,
                 isList = isComposite,
                 underlyingType = underlyingTYpe.ktName(),
-                nullable = typeGeneratorConfiguration.nullable
+                nullable = conf.nullable
             )
         }
 
@@ -45,9 +46,9 @@ class TypeGenerator(
         outputFlatType(jsonStr, TypeGeneratorConfiguration(className))
     }
 
-    fun outputFlatType(jsonStr: String, typeGeneratorConfiguration: TypeGeneratorConfiguration) {
+    fun outputFlatType(jsonStr: String, conf: TypeGeneratorConfiguration) {
         val dataClass = generateFlatType(jsonStr)
-        dataClass.name = typeGeneratorConfiguration.className
+        dataClass.name = conf.className
         val fileName = outputFilePath + "${dataClass.name}.kt"
         val file = File(fileName)
 
