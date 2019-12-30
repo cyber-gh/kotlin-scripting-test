@@ -6,15 +6,17 @@ import utilities.readFromFile
 class TypeGeneratorTests {
 
     private val workingDir = "src/test/resources/"
+    private val typeGenerator = TypeGenerator(workingDir)
 
     @Test
     fun testGeneratesBasicFlatType() {
-        val inJsonFilePath = workingDir + "basicFlatType.json"
-        val outGeneratedClassPath = workingDir +  "BasicFlatTypeOutput"
+        val testName = "BasicFlatType"
+        val inJsonFilePath = "$workingDir$testName.json"
+        val outGeneratedClassPath = workingDir + testName + "Output"// "BasicFlatTypeOutput"
         val rawStr = readFromFile(inJsonFilePath)
-        val typeGenerator = TypeGenerator(workingDir)
 
-        val genClassName = "BasicFlatTypeGenerated"
+
+        val genClassName = testName + "Generated"// "BasicFlatTypeGenerated"
         typeGenerator.outputFlatType(rawStr, genClassName)
 
         assert(

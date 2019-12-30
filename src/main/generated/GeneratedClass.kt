@@ -1,6 +1,5 @@
 import com.google.gson.Gson
 
-
 data class GeneratedClass (
 	val names: List<String>
 ){

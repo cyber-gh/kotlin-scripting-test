@@ -24,7 +24,7 @@ data class KotlinDataClass(
 
     fun getImportStatements(): String {
         val lst = listOf("import com.google.gson.Gson")
-        return lst.joinToString("\n") + "\n\n"
+        return lst.joinToString("\n") + "\n"
     }
 
     fun generateCompleteSourceCode() : String {
