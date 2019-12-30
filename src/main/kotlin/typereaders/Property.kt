@@ -8,5 +8,7 @@ data class Property(
     val value: String = "",
     val comment: String = "",
     val isLast: Boolean = false,
-    val typeId: Int = -1
+    val typeId: Int = -1,
+    val isList: Boolean = false,
+    val underlyingType: String? = null
 )

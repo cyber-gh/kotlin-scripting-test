@@ -20,9 +20,23 @@ fun KotlinDataType.ktName(): String {
     }
 }
 
-fun JsonElement.getValueAsRawString() : String {
+fun KotlinDataType.isPrimitive() : Boolean {
+    return this in setOf(KotlinDataType.INT, KotlinDataType.BOOLEAN, KotlinDataType.DOUBLE, KotlinDataType.STRING)
+}
 
-    return ""
+fun JsonElement.typeOfListElements() : KotlinDataType {
+    if (!isJsonArray) return KotlinDataType.UNKNOWN
+    val arr = asJsonArray
+    val types = arr.map { it.getType() }.toSet()
+    if (types.count() == 1) {
+        return types.first()
+    } else {
+        return KotlinDataType.UNKNOWN
+    }
+}
+
+fun JsonElement.getValueAsRawString() : String {
+    TODO()
 }
 
 fun JsonElement.getType() : KotlinDataType {
@@ -38,12 +52,16 @@ fun JsonElement.getType() : KotlinDataType {
 
 
     }
-    if (isJsonArray) return KotlinDataType.LIST
+    if (isJsonArray) {
+        return  KotlinDataType.LIST
+    }
     if (isJsonObject) return KotlinDataType.CUSTOM
     if (isJsonNull) return  KotlinDataType.UNIT
 
     return KotlinDataType.UNKNOWN
 }
+
+
 
 internal val digits = ('0' .. '9').toList().map { it }
 

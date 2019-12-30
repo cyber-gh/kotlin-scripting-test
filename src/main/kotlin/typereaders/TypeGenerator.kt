@@ -2,8 +2,7 @@ package typereaders
 
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import utilities.getType
-import utilities.ktName
+import utilities.*
 import java.io.File
 
 class TypeGenerator(
@@ -16,11 +15,22 @@ class TypeGenerator(
 
         val entries = gson.entrySet()
         val properties = entries.mapIndexed { index, mutableEntry ->
+            val type = mutableEntry.value.getType()
+            var underlyingTYpe = KotlinDataType.UNKNOWN
+
+            if (type == KotlinDataType.LIST) {
+                underlyingTYpe = mutableEntry.value.typeOfListElements()
+            }
+
+            val isComposite = underlyingTYpe.isPrimitive()
+
             Property(
                 originName = mutableEntry.key,
                 originJsonValue = mutableEntry.value.toString(),
                 type = mutableEntry.value.getType().ktName(),
-                isLast = index == entries.size - 1
+                isLast = index == entries.size - 1,
+                isList = isComposite,
+                underlyingType = underlyingTYpe.ktName()
             )
         }
 

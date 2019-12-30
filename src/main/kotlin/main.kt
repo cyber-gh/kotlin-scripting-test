@@ -2,7 +2,7 @@
 import typereaders.TypeGenerator
 import utilities.readFromFile
 
-val jsonPath = "src/main/resources/simpleJSON.json"
+val jsonPath = "src/main/resources/flatArrayJSON.json"
 
 
 
@@ -12,10 +12,6 @@ fun main() {
 
     typeGenerator.outputFlatType(jsonRaw)
 
-    val tst = GeneratedClass.readFromSource(jsonRaw)
-
-    println(tst)
-    print( tst.string)
 
 
 
